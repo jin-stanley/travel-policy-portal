@@ -90,6 +90,8 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
     [pageSize, visiblePolicies.length],
   );
 
+  const safePage = Math.min(page, totalPages);
+
   const setPage = useCallback((nextPage: number) => {
     setPageState(Math.min(Math.max(nextPage, 1), totalPages));
   }, [totalPages]);
@@ -100,8 +102,8 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const currentPagePolicies = useMemo(
-    () => paginatePolicies(visiblePolicies, page, pageSize),
-    [page, pageSize, visiblePolicies],
+    () => paginatePolicies(visiblePolicies, safePage, pageSize),
+    [pageSize, safePage, visiblePolicies],
   );
 
   const value = useMemo(
@@ -109,7 +111,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       currentPagePolicies,
       error,
       isLoading,
-      page,
+      page: safePage,
       pageSize,
       policies,
       setPage,
@@ -121,7 +123,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       currentPagePolicies,
       error,
       isLoading,
-      page,
+      safePage,
       pageSize,
       policies,
       setPage,
