@@ -2,8 +2,10 @@ import type {
   PoliciesResponse,
   Policy,
 } from "@/features/policies/types/policy";
-
-const POLICIES_ENDPOINT = "/api/policies";
+import {
+  POLICIES_ENDPOINT,
+  POLICY_COPY,
+} from "@/features/policies/constants/policyConstants";
 
 function isPoliciesResponse(data: unknown): data is PoliciesResponse {
   return (
@@ -29,13 +31,13 @@ export async function fetchPolicies({
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch policies: ${response.status}`);
+    throw new Error(`${POLICY_COPY.errors.loadFailed}: ${response.status}`);
   }
 
   const data = (await response.json()) as unknown;
 
   if (!isPoliciesResponse(data)) {
-    throw new Error("Failed to fetch policies: invalid response shape");
+    throw new Error(POLICY_COPY.errors.invalidResponse);
   }
 
   return data.policies;

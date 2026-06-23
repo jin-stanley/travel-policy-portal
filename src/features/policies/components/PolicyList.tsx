@@ -3,6 +3,7 @@
 import { PolicyCard } from "@/features/policies/components/PolicyCard";
 import { PolicyPageSizeSelect } from "@/features/policies/components/PolicyPageSizeSelect";
 import { PolicyPagination } from "@/features/policies/components/PolicyPagination";
+import { POLICY_COPY } from "@/features/policies/constants/policyConstants";
 import { usePolicies } from "@/features/policies/context/PoliciesContext";
 
 export function PolicyList() {
@@ -22,7 +23,7 @@ export function PolicyList() {
   if (isLoading) {
     return (
       <div className="policy-state" role="status">
-        Loading policies...
+        {POLICY_COPY.page.loading}
       </div>
     );
   }
@@ -36,18 +37,18 @@ export function PolicyList() {
           onClick={() => reloadPolicies()}
           type="button"
         >
-          Try again
+          {POLICY_COPY.actions.retry}
         </button>
       </div>
     );
   }
 
   if (visiblePolicies.length === 0) {
-    return <div className="policy-state">No active policies found.</div>;
+    return <div className="policy-state">{POLICY_COPY.page.empty}</div>;
   }
 
   return (
-    <section className="policy-list" aria-label="Active policies">
+    <section className="policy-list" aria-label={POLICY_COPY.page.activePoliciesLabel}>
       <div className="policy-list-toolbar">
         <p>
           Showing {currentPagePolicies.length} of {visiblePolicies.length} active

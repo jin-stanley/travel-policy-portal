@@ -1,5 +1,6 @@
 import { PolicyActions } from "@/features/policies/components/PolicyActions";
 import { PolicyLinks } from "@/features/policies/components/PolicyLinks";
+import { POLICY_COPY } from "@/features/policies/constants/policyConstants";
 import type { Policy } from "@/features/policies/types/policy";
 import { getPolicyDetailRows } from "@/features/policies/utils/policyDisplay";
 
@@ -11,7 +12,7 @@ export function PolicyCard({ policy }: { policy: Policy }) {
       <div className="policy-card-main">
         <div className="policy-card-content">
           <h2 className="policy-number">
-            <span>Policy number:</span>{" "}
+            <span>{POLICY_COPY.policyNumberLabel}:</span>{" "}
             <strong>{policy.policyNumber}</strong>
           </h2>
 

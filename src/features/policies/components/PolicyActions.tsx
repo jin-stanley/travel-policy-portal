@@ -1,3 +1,5 @@
+import { POLICY_COPY } from "@/features/policies/constants/policyConstants";
+
 type PolicyActionsProps = {
   onClaim?: (policyNumber: string) => void;
   onManage?: (policyNumber: string) => void;
@@ -26,14 +28,14 @@ export function PolicyActions({
         onClick={handleClaimClick}
         type="button"
       >
-        Make a claim
+        {POLICY_COPY.actions.claim}
       </button>
       <button
         className="policy-button policy-button-secondary"
         onClick={handleManageClick}
         type="button"
       >
-        Manage my policy
+        {POLICY_COPY.actions.manage}
       </button>
     </div>
   );

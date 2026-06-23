@@ -1,7 +1,8 @@
-"use client";
-
-import type { PolicyPageSize } from "@/features/policies/utils/policyTransforms";
-import { POLICY_PAGE_SIZE_OPTIONS } from "@/features/policies/utils/policyTransforms";
+import {
+  POLICY_COPY,
+  POLICY_PAGE_SIZE_OPTIONS,
+  type PolicyPageSize,
+} from "@/features/policies/constants/policyConstants";
 
 type PolicyPageSizeSelectProps = {
   pageSize: PolicyPageSize;
@@ -14,7 +15,7 @@ export function PolicyPageSizeSelect({
 }: PolicyPageSizeSelectProps) {
   return (
     <div className="policy-page-size">
-      <span id="page-size-label">Show</span>
+      <span id="page-size-label">{POLICY_COPY.page.pageSizePrefix}</span>
       <div
         aria-labelledby="page-size-label"
         className="policy-page-size-options"
@@ -34,7 +35,7 @@ export function PolicyPageSizeSelect({
           </button>
         ))}
       </div>
-      <span>per page</span>
+      <span>{POLICY_COPY.page.pageSizeSuffix}</span>
     </div>
   );
 }

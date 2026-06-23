@@ -11,13 +11,16 @@ import {
 } from "react";
 
 import { fetchPolicies } from "@/features/policies/api/fetchPolicies";
+import {
+  DEFAULT_POLICIES_PER_PAGE,
+  POLICY_COPY,
+  type PolicyPageSize,
+} from "@/features/policies/constants/policyConstants";
 import type { Policy } from "@/features/policies/types/policy";
 import {
   getTotalPages,
   getVisiblePolicies,
   paginatePolicies,
-  POLICIES_PER_PAGE,
-  type PolicyPageSize,
 } from "@/features/policies/utils/policyTransforms";
 
 type PoliciesContextValue = {
@@ -42,7 +45,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [page, setPageState] = useState(1);
   const [pageSize, setPageSizeState] =
-    useState<PolicyPageSize>(POLICIES_PER_PAGE);
+    useState<PolicyPageSize>(DEFAULT_POLICIES_PER_PAGE);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -62,7 +65,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : "Unable to load policies.",
+          : POLICY_COPY.errors.loadFallback,
       );
     } finally {
       if (!signal?.aborted) {

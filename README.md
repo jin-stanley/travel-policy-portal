@@ -41,6 +41,7 @@ src/
   features/policies/
     api/fetchPolicies.ts       # Frontend API client
     components/                # Policy list UI
+    constants/policyConstants.ts
     context/PoliciesContext.tsx
     data/mockPolicies.ts       # Mock backend data
     styles/policies.css        # Policy feature styles
@@ -101,6 +102,7 @@ The application keeps layers intentionally small:
 - The API route owns the mock response contract.
 - The fetcher owns HTTP and response handling.
 - Pure helpers own formatting, filtering, sorting, pagination, and policy display mapping.
+- Policy constants keep user-facing copy, endpoint paths, and pagination options in one place.
 - Context owns shared page state and derived data.
 - Components focus on semantic markup and responsive presentation.
 - Policy-specific CSS lives with the policy feature instead of in the app-wide stylesheet.
