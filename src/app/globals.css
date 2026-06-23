@@ -81,7 +81,7 @@ a:focus-visible {
 
 .policy-list {
   display: grid;
-  gap: 24px;
+  gap: 22px;
 }
 
 .policy-list-toolbar {
@@ -89,6 +89,7 @@ a:focus-visible {
   display: flex;
   gap: 18px;
   justify-content: space-between;
+  padding: 0 2px;
 }
 
 .policy-list-toolbar p {
@@ -100,26 +101,43 @@ a:focus-visible {
 
 .policy-page-size {
   align-items: center;
-  color: var(--foreground);
+  color: var(--muted);
   display: inline-flex;
-  gap: 10px;
-  font-size: 15px;
-  font-weight: 650;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 620;
 }
 
-.policy-page-size select {
-  background: var(--card);
-  border: 1.5px solid #c9cbd1;
+.policy-page-size-options {
+  background: rgba(255, 255, 255, 0.54);
+  border: 1px solid #d8d9dd;
   border-radius: 999px;
-  color: var(--foreground);
-  font: inherit;
-  min-height: 38px;
-  padding: 0 34px 0 14px;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
 }
 
-.policy-page-size select:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 4px;
+.policy-page-size-option {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 720;
+  height: 28px;
+  justify-content: center;
+  line-height: 1;
+  min-width: 30px;
+  padding: 0 10px;
+}
+
+.policy-page-size-option[data-active="true"] {
+  background: var(--card);
+  box-shadow: 0 1px 4px rgba(17, 24, 39, 0.12);
+  color: var(--brand-strong);
 }
 
 .policy-cards {
@@ -397,12 +415,11 @@ a:focus-visible {
   .policy-list-toolbar {
     align-items: flex-start;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
   .policy-page-size {
-    justify-content: space-between;
-    width: 100%;
+    align-self: flex-start;
   }
 
   .policy-pagination {
