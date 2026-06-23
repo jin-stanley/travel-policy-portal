@@ -314,6 +314,7 @@ a:focus-visible {
   .policy-detail-grid {
     display: grid;
     gap: 14px;
+    grid-template-columns: 1fr;
     max-width: none;
   }
 
