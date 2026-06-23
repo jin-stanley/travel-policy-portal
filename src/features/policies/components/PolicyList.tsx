@@ -12,6 +12,7 @@ export function PolicyList() {
     isLoading,
     page,
     pageSize,
+    reloadPolicies,
     setPage,
     setPageSize,
     totalPages,
@@ -29,7 +30,14 @@ export function PolicyList() {
   if (error) {
     return (
       <div className="policy-state policy-state-error" role="alert">
-        {error}
+        <p>{error}</p>
+        <button
+          className="policy-state-action"
+          onClick={() => reloadPolicies()}
+          type="button"
+        >
+          Try again
+        </button>
       </div>
     );
   }

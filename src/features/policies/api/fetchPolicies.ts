@@ -14,11 +14,18 @@ function isPoliciesResponse(data: unknown): data is PoliciesResponse {
   );
 }
 
-export async function fetchPolicies(): Promise<Policy[]> {
+type FetchPoliciesOptions = {
+  signal?: AbortSignal;
+};
+
+export async function fetchPolicies({
+  signal,
+}: FetchPoliciesOptions = {}): Promise<Policy[]> {
   const response = await fetch(POLICIES_ENDPOINT, {
     headers: {
       Accept: "application/json",
     },
+    signal,
   });
 
   if (!response.ok) {

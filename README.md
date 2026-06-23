@@ -43,6 +43,7 @@ src/
     components/                # Policy list UI
     context/PoliciesContext.tsx
     data/mockPolicies.ts       # Mock backend data
+    styles/policies.css        # Policy feature styles
     types/policy.ts            # Domain types
     utils/                     # Formatting and business helpers
 ```
@@ -102,3 +103,4 @@ The application keeps layers intentionally small:
 - Pure helpers own formatting, filtering, sorting, pagination, and policy display mapping.
 - Context owns shared page state and derived data.
 - Components focus on semantic markup and responsive presentation.
+- Policy-specific CSS lives with the policy feature instead of in the app-wide stylesheet.

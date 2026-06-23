@@ -27,6 +27,7 @@ type PoliciesContextValue = {
   page: number;
   pageSize: PolicyPageSize;
   policies: Policy[];
+  reloadPolicies: () => Promise<void>;
   setPage: (page: number) => void;
   setPageSize: (pageSize: PolicyPageSize) => void;
   totalPages: number;
@@ -45,40 +46,40 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let isMounted = true;
+  const loadPolicies = useCallback(async (signal?: AbortSignal) => {
+    try {
+      setIsLoading(true);
+      setError(null);
 
-    async function loadPolicies() {
-      try {
-        setIsLoading(true);
-        setError(null);
+      const nextPolicies = await fetchPolicies({ signal });
 
-        const nextPolicies = await fetchPolicies();
+      setPolicies(nextPolicies);
+    } catch (caughtError) {
+      if (signal?.aborted) {
+        return;
+      }
 
-        if (isMounted) {
-          setPolicies(nextPolicies);
-        }
-      } catch (caughtError) {
-        if (isMounted) {
-          setError(
-            caughtError instanceof Error
-              ? caughtError.message
-              : "Unable to load policies.",
-          );
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
+      setError(
+        caughtError instanceof Error
+          ? caughtError.message
+          : "Unable to load policies.",
+      );
+    } finally {
+      if (!signal?.aborted) {
+        setIsLoading(false);
       }
     }
+  }, []);
 
-    loadPolicies();
+  useEffect(() => {
+    const controller = new AbortController();
+
+    Promise.resolve().then(() => loadPolicies(controller.signal));
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
-  }, []);
+  }, [loadPolicies]);
 
   const visiblePolicies = useMemo(
     () => getVisiblePolicies(policies),
@@ -114,6 +115,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       page: safePage,
       pageSize,
       policies,
+      reloadPolicies: loadPolicies,
       setPage,
       setPageSize,
       totalPages,
@@ -126,6 +128,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       safePage,
       pageSize,
       policies,
+      loadPolicies,
       setPage,
       setPageSize,
       totalPages,
