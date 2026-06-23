@@ -81,7 +81,45 @@ a:focus-visible {
 
 .policy-list {
   display: grid;
-  gap: 34px;
+  gap: 24px;
+}
+
+.policy-list-toolbar {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.policy-list-toolbar p {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 620;
+  margin: 0;
+}
+
+.policy-page-size {
+  align-items: center;
+  color: var(--foreground);
+  display: inline-flex;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.policy-page-size select {
+  background: var(--card);
+  border: 1.5px solid #c9cbd1;
+  border-radius: 999px;
+  color: var(--foreground);
+  font: inherit;
+  min-height: 38px;
+  padding: 0 34px 0 14px;
+}
+
+.policy-page-size select:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
 }
 
 .policy-cards {
@@ -354,6 +392,17 @@ a:focus-visible {
 
   .policy-cards {
     gap: 32px;
+  }
+
+  .policy-list-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .policy-page-size {
+    justify-content: space-between;
+    width: 100%;
   }
 
   .policy-pagination {

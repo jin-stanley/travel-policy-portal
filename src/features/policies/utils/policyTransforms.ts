@@ -1,6 +1,9 @@
 import type { Policy } from "@/features/policies/types/policy";
 
 export const POLICIES_PER_PAGE = 3;
+export const POLICY_PAGE_SIZE_OPTIONS = [3, 6, 9] as const;
+
+export type PolicyPageSize = (typeof POLICY_PAGE_SIZE_OPTIONS)[number];
 
 export function getActivePolicies(policies: Policy[]) {
   return policies.filter((policy) => policy.status === "Active");

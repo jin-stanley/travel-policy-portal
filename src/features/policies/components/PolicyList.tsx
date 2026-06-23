@@ -1,6 +1,7 @@
 "use client";
 
 import { PolicyCard } from "@/features/policies/components/PolicyCard";
+import { PolicyPageSizeSelect } from "@/features/policies/components/PolicyPageSizeSelect";
 import { PolicyPagination } from "@/features/policies/components/PolicyPagination";
 import { usePolicies } from "@/features/policies/context/PoliciesContext";
 
@@ -10,7 +11,9 @@ export function PolicyList() {
     error,
     isLoading,
     page,
+    pageSize,
     setPage,
+    setPageSize,
     totalPages,
     visiblePolicies,
   } = usePolicies();
@@ -37,6 +40,14 @@ export function PolicyList() {
 
   return (
     <section className="policy-list" aria-label="Active policies">
+      <div className="policy-list-toolbar">
+        <p>
+          Showing {currentPagePolicies.length} of {visiblePolicies.length} active
+          policies
+        </p>
+        <PolicyPageSizeSelect pageSize={pageSize} setPageSize={setPageSize} />
+      </div>
+
       <div className="policy-cards">
         {currentPagePolicies.map((policy) => (
           <PolicyCard key={policy.policyNumber} policy={policy} />

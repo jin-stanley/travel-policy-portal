@@ -17,6 +17,7 @@ import {
   getVisiblePolicies,
   paginatePolicies,
   POLICIES_PER_PAGE,
+  type PolicyPageSize,
 } from "@/features/policies/utils/policyTransforms";
 
 type PoliciesContextValue = {
@@ -24,9 +25,10 @@ type PoliciesContextValue = {
   error: string | null;
   isLoading: boolean;
   page: number;
-  pageSize: number;
+  pageSize: PolicyPageSize;
   policies: Policy[];
   setPage: (page: number) => void;
+  setPageSize: (pageSize: PolicyPageSize) => void;
   totalPages: number;
   visiblePolicies: Policy[];
 };
@@ -38,6 +40,8 @@ const PoliciesContext = createContext<PoliciesContextValue | undefined>(
 export function PoliciesProvider({ children }: { children: ReactNode }) {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [page, setPageState] = useState(1);
+  const [pageSize, setPageSizeState] =
+    useState<PolicyPageSize>(POLICIES_PER_PAGE);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -82,15 +86,18 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
   );
 
   const totalPages = useMemo(
-    () => getTotalPages(visiblePolicies.length),
-    [visiblePolicies.length],
+    () => getTotalPages(visiblePolicies.length, pageSize),
+    [pageSize, visiblePolicies.length],
   );
-
-  const pageSize = POLICIES_PER_PAGE;
 
   const setPage = useCallback((nextPage: number) => {
     setPageState(Math.min(Math.max(nextPage, 1), totalPages));
   }, [totalPages]);
+
+  const setPageSize = useCallback((nextPageSize: PolicyPageSize) => {
+    setPageSizeState(nextPageSize);
+    setPageState(1);
+  }, []);
 
   const currentPagePolicies = useMemo(
     () => paginatePolicies(visiblePolicies, page, pageSize),
@@ -106,6 +113,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       pageSize,
       policies,
       setPage,
+      setPageSize,
       totalPages,
       visiblePolicies,
     }),
@@ -117,6 +125,7 @@ export function PoliciesProvider({ children }: { children: ReactNode }) {
       pageSize,
       policies,
       setPage,
+      setPageSize,
       totalPages,
       visiblePolicies,
     ],

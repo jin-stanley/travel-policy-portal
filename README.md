@@ -25,7 +25,7 @@ mock policy contract
 - Fetches policies through an HTTP API route instead of importing mock data in UI code.
 - Filters the list to active policies.
 - Sorts active policies by policy start date in ascending order.
-- Paginates policy cards with three policies per page.
+- Paginates policy cards and lets users choose how many policies to show per page.
 - Displays different details for single-trip and annual multi-trip policies.
 - Provides loading, empty, and error states.
 - Uses semantic links and buttons with visible keyboard focus styles.
@@ -91,7 +91,7 @@ The frontend only talks to this endpoint through `fetchPolicies()`, so replacing
 - Rendered policies are sorted by `policyStart` ascending.
 - `Single Trip` policies show a travel-date range.
 - `Annual` policies show the policy start date and maximum trip duration.
-- Pagination shows a maximum of three policies per page.
+- Pagination defaults to three policies per page and supports 3, 6, or 9 policies per page.
 
 ## Implementation Notes
 
